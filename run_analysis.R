@@ -96,8 +96,11 @@ total_data <- rbind(train_data, test_data)
 # E .. New data set 
 
 # aggregation of the data with the average of each variable for each activity and each subject 
-means_per_subject_and_activity <- aggregate(total_data[,4:69],list(subjectid = total_data$subjectid, activity = total_data$activity), mean)
+# means_per_subject_and_activity <- aggregate(total_data[,4:69],list(subjectid = total_data$subjectid, activity = total_data$activity), mean)
 
+# Alternative with library(dplyr)
+library(dplyr)
+means_per_subject_and_activity <- total_data %>% group_by(subjectid,type,activity) %>% summarise_all(mean)
 
 #######################
 # F .. write the tidy data set (E) in a file
